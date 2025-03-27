@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Общая выручка</h2>
+    <p>Выручка за оплаченные заказы: <strong>{{ revenue }} тнг.</strong></p>
+    <a href="{% url 'order_list' %}" class="btn">Вернуться к заказам</a>
+</div>
+{% endblock %}

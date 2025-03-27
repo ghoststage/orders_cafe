@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h2>Ассортимент блюд</h2>
+        <ul>
+            {% for dish in dishes %}
+                <li>{{ dish.name }} - {{ dish.price }} тнг. <br> {{ dish.description }}</li>
+            {% empty %}
+                <li>Нет доступных блюд в ассортименте.</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

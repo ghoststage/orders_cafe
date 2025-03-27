@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h2 class="title">Редактирование заказа №{{ order.id }}</h2>
+
+    <div class="card">
+        <h3>Добавить блюдо</h3>
+        <form method="POST" class="order-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <select name="dish_id" class="select-menu">
+                    {% for dish in dishes %}
+                        <option value="{{ dish.id }}">{{ dish.name }} - {{ dish.price }} тнг</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" name="add_item" class="btn btn-add">Добавить</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="card">
+        <h3>Текущий состав заказа</h3>
+        {% if order.items.all %}
+            <ul class="order-list">
+                {% for item in order.items.all %}
+                    <li class="order-item">
+                        {{ item.name }} - <strong>{{ item.price }} тнг</strong>
+                        <form method="POST" class="delete-form">
+                            {% csrf_token %}
+                            <input type="hidden" name="item_id" value="{{ item.id }}">
+                            <button type="submit" name="delete_item" class="btn btn-delete">Удалить</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="empty-msg">Заказ пуст</p>
+        {% endif %}
+    </div>
+
+    <a href="{% url 'order_list' %}" class="btn btn-back">⬅ Назад</a>
+</div>
+{% endblock %}
